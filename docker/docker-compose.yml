@@ -1,0 +1,29 @@
+version: '3'
+
+## Make sure the machine contains java 8 + and Apache Maven installed run this command
+##  mvn package && cp target/file-server.jar docker/api && cd docker && docker-compose up --build -d && rm -r api/file-server.jar && cd ..
+services:
+  file-server-api:
+    build:
+      dockerfile: Dockerfile
+      context: api
+    image: filseserver
+    container_name: file-server-api
+    restart: always
+    ports:
+      - 8087:80
+    volumes:
+      - ~/.local_file_server/files/:/root/.file/
+    networks:
+      serverfileNetWork:
+        ipv4_address: 172.10.4.3
+
+    command: "java -jar file-server.jar"
+
+networks:
+  serverfileNetWork:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.10.4.0/24
