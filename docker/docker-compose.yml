@@ -7,23 +7,11 @@ services:
     build:
       dockerfile: Dockerfile
       context: api
-    image: filseserver
-    container_name: file-server-api
+    image: v1-file-server:latest
+    container_name: v1-file-server-api
     restart: always
     ports:
-      - 8087:80
+      - 80:80
     volumes:
       - ~/.local_file_server/files/:/root/.file/
-    networks:
-      serverfileNetWork:
-        ipv4_address: 172.10.4.3
-
     command: "java -jar file-server.jar"
-
-networks:
-  serverfileNetWork:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 172.10.4.0/24
