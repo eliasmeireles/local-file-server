@@ -14,4 +14,4 @@ services:
       - 80:80
     volumes:
       - ~/.local_file_server/files/:/root/.file/
-    command: "java -jar file-server.jar"
+#    command: "java -jar file-server.jar"
